@@ -1,0 +1,168 @@
+openapi: 3.0.3
+info:
+  title: OpenLigaDB
+  version: 0.0.1
+servers:
+  - url: https://www.openligadb.de/api
+
+paths:
+  /getmatchdata/{liga}/{year}:
+    get:
+      operationId: getMatchsByLigaAndYear
+      parameters:
+        - name: liga
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: year
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Get matches by liga and year
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Match'
+
+  #/getmatchdata/{id}:
+
+components:
+  schemas:
+    Group:
+      properties:
+        GroupName:
+          type: string
+      required:
+        - GroupName
+    Team:
+      properties:
+        TeamName:
+          type: string
+        ShortName:
+          type: string
+        TeamIconUrl:
+          type: string
+          format: uri
+      required:
+        - TeamName
+    Result:
+      properties:
+        ResultName:
+          type: string
+        PointsTeam1:
+          type: integer
+        PointsTeam2:
+          type: integer
+        ResultTypeID:
+          type: integer
+      required:
+        - PointsTeam1
+        - PointsTeam2
+        - ResultTypeID
+    Location:
+      properties:
+        LocationCity:
+          type: string
+        LocationStadium:
+          type: string
+    Match:
+      properties:
+        MatchID:
+          type: integer
+        MatchDateTimeUTC:
+          type: string
+          format: date-time
+        LeagueName:
+          type: string
+        MatchIsFinished:
+          type: boolean
+        Group:
+          $ref: '#/components/schemas/Group'
+        Team1:
+          $ref: '#/components/schemas/Team'
+        Team2:
+          $ref: '#/components/schemas/Team'
+        MatchResults:
+          type: array
+          items:
+            $ref: '#/components/schemas/Result'
+        Location:
+          $ref: '#/components/schemas/Team'
+      required:
+        - MatchID
+      example:
+        {
+        "MatchID": 58577,
+        "MatchDateTime": "2020-09-18T20:30:00",
+        "TimeZoneID": "W. Europe Standard Time",
+        "LeagueId": 4442,
+        "LeagueName": "1. Fußball-Bundesliga 2020/2021",
+        "MatchDateTimeUTC": "2020-09-18T18:30:00Z",
+        "Group": {
+            "GroupName": "1. Spieltag",
+            "GroupOrderID": 1,
+            "GroupID": 36486
+        },
+        "Team1": {
+            "TeamId": 40,
+            "TeamName": "FC Bayern",
+            "ShortName": "FC Bayern",
+            "TeamIconUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Logo_FC_Bayern_M%C3%BCnchen_%282002%E2%80%932017%29.svg/240px-Logo_FC_Bayern_M%C3%BCnchen_%282002%E2%80%932017%29.svg.png",
+            "TeamGroupName": null
+        },
+        "Team2": {
+            "TeamId": 9,
+            "TeamName": "FC Schalke 04",
+            "ShortName": "Schalke 04",
+            "TeamIconUrl": "https://upload.wikimedia.org/wikipedia/commons/6/6d/FC_Schalke_04_Logo.svg",
+            "TeamGroupName": null
+        },
+        "LastUpdateDateTime": "2020-09-20T16:15:35.617",
+        "MatchIsFinished": true,
+        "MatchResults": [
+            {
+                "ResultID": 92144,
+                "ResultName": "Endergebnis",
+                "PointsTeam1": 8,
+                "PointsTeam2": 0,
+                "ResultOrderID": 1,
+                "ResultTypeID": 2,
+                "ResultDescription": "Ergebnis nach Ende der offiziellen Spielzeit"
+            },
+            {
+                "ResultID": 92145,
+                "ResultName": "Halbzeit",
+                "PointsTeam1": 3,
+                "PointsTeam2": 0,
+                "ResultOrderID": 2,
+                "ResultTypeID": 1,
+                "ResultDescription": "Zwischenstand zur Halbzeit"
+            }
+        ],
+        "Goals": [
+            {
+                "GoalID": 84638,
+                "ScoreTeam1": 1,
+                "ScoreTeam2": 0,
+                "MatchMinute": 4,
+                "GoalGetterID": 18085,
+                "GoalGetterName": "Gnabry",
+                "IsPenalty": false,
+                "IsOwnGoal": false,
+                "IsOvertime": false,
+                "Comment": null
+            }
+        ],
+        "Location": {
+            "LocationID": 34,
+            "LocationCity": "München",
+            "LocationStadium": "Allianz Arena"
+        },
+        "NumberOfViewers": null
+    }
