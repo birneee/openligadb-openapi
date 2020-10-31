@@ -53,10 +53,16 @@ components:
       properties:
         GroupName:
           type: string
+        GroupOrderID:
+          type: integer
+        GroupID:
+          type: integer
       required:
         - GroupName
     Team:
       properties:
+        TeamId:
+          type: integer
         TeamName:
           type: string
         ShortName:
@@ -64,24 +70,56 @@ components:
         TeamIconUrl:
           type: string
           format: uri
+        TeamGroupName:
+          type: string
       required:
         - TeamName
     Result:
       properties:
+        ResultID:
+          type: integer
         ResultName:
           type: string
         PointsTeam1:
           type: integer
         PointsTeam2:
           type: integer
+        ResultOrderID:
+          type: integer
         ResultTypeID:
           type: integer
+        ResultDescription:
+          type: string
       required:
         - PointsTeam1
         - PointsTeam2
         - ResultTypeID
+    Goal:
+      properties:
+        GoalID: 
+          type: integer
+        ScoreTeam1:
+          type: integer
+        ScoreTeam2:
+          type: integer
+        MatchMinute:
+          type: integer
+        GoalGetterID:
+          type: integer
+        GoalGetterName:
+          type: string
+        IsPenalty:
+          type: boolean
+        IsOwnGoal:
+          type: boolean
+        IsOvertime:
+          type: boolean
+        Comment:
+          type: string
     Location:
       properties:
+        LocationID:
+          type: integer
         LocationCity:
           type: string
         LocationStadium:
@@ -90,24 +128,40 @@ components:
       properties:
         MatchID:
           type: integer
+        MatchDateTime:
+          type: string
+          format: date-time
+        TimeZoneID:
+          type: string
+        LeagueId:
+          type: integer
+        LeagueName:
+          type: string
         MatchDateTimeUTC:
           type: string
           format: date-time
-        LeagueName:
-          type: string
-        MatchIsFinished:
-          type: boolean
         Group:
           $ref: '#/components/schemas/Group'
         Team1:
           $ref: '#/components/schemas/Team'
         Team2:
           $ref: '#/components/schemas/Team'
+        LastUpdateDateTime:
+          type: string
+          format: date-time
+        MatchIsFinished:
+          type: boolean
         MatchResults:
           type: array
           items:
             $ref: '#/components/schemas/Result'
+        Goals:
+          type: array
+          items:
+            $ref: '#/components/schemas/Goal'
         Location:
           $ref: '#/components/schemas/Team'
+        NumberOfViewers:
+          type: integer
       required:
         - MatchID
