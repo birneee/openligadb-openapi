@@ -158,7 +158,7 @@ components:
           items:
             $ref: '#/components/schemas/Goal'
         Location:
-          $ref: '#/components/schemas/Team'
+          $ref: '#/components/schemas/Location'
         NumberOfViewers:
           type: integer
       required:
