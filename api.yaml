@@ -147,7 +147,6 @@ components:
           $ref: '#/components/schemas/Team'
         LastUpdateDateTime:
           type: string
-          format: date-time
         MatchIsFinished:
           type: boolean
         MatchResults:
