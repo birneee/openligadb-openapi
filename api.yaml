@@ -130,7 +130,6 @@ components:
           type: integer
         MatchDateTime:
           type: string
-          format: date-time
         TimeZoneID:
           type: string
         LeagueId:
